@@ -4,7 +4,7 @@ use std::sync::mpsc::channel;
 use std::{thread, thread::available_parallelism};
 use std::time::Instant;
 use ahash::AHashMap;
-use memmap2::Mmap;
+use memmap::Mmap;
 use one_brc::{FILE_PATH, LINE_MAX_LEN, process_block, result::TemperStatResult};
 
 fn main() {

@@ -8,7 +8,7 @@ edition = "2021"
 [dependencies]
 ahash = "0.8"
 memchr = "2.7"
-memmap2 = "0.9"
+memmap = "0.7"
 rand = "0.8"
 
 [dev-dependencies]

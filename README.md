@@ -70,16 +70,16 @@ The first implementation has three disadvantages: low speed of reading a file,
 reading can only be sequential, and memory control is needed because the entire 
 file is loaded into RAM.
 
-All these three problems disappear with the help of one library [memmap2](https://docs.rs/memmap2/latest/memmap2/).
+All these three problems disappear with the help of one library [memmap](https://docs.rs/memmap/latest/memmap/).
 
 **The second idea** is to subdivide a memory-mapped file into blocks, pass them 
 to other threads for processing, and as they finish, aggregate the results. 
-Implementation in [examples/mmap2-timing.rs](examples/mmap2-timing.rs).
+Implementation in [examples/mmap-timing.rs](examples/mmap-timing).
 Examples have also been written to compare the speed of breaking a block into lines
-[examples/mmap2-split-count.rs](examples/mmap2-split-count.rs) with the standard library of the Rust language, and 
-[examples/mmap2-memchr-count.rs](examples/mmap2-memchr-count.rs) using the library [memchr](https://docs.rs/memchr/latest/memchr/).
+[examples/mmap-split-count.rs](examples/mmap-split-count) with the standard library of the Rust language, and 
+[examples/mmap-memchr-count.rs](examples/mmap-memchr-count) using the library [memchr](https://docs.rs/memchr/latest/memchr/).
 
-Solution is ready, copy the `main` function from [examples/mmap2-timing.rs](examples/mmap2-timing.rs)
+Solution is ready, copy the `main` function from [examples/mmap-timing.rs](examples/mmap-timing)
 into [src/main.rs](src/main.rs). 
 
 **Voilà!**
@@ -107,17 +107,17 @@ cargo run --release --example read-file-timing
 
 Measurements of memory mapped file and processing time:
 ```shell
-cargo run --release --example mmap2-timing
+cargo run --release --example mmap-timing
 ```
 
 Example of counting lines in a file using `std::slice::split`:
 ```shell
-cargo run --release --example mmap2-split-count
+cargo run --release --example mmap-split-count
 ```
 
 Example of counting lines in a file using library `memchr`:
 ```shell
-cargo run --release --example mmap2-memchr-count
+cargo run --release --example mmap-memchr-count
 ```
 
 To run the benchmarks, we need to set the runtime for the project to `nightly`
@@ -140,9 +140,9 @@ channel = "nightly"
 
 | Git Nik             | Arch/Lines/Keys | Result (5 best / first)          | Lang |
 |---------------------|-----------------|----------------------------------|------|
-| JavaLot             | X86-64/1B/10K   | 3.572971977s / 6.4570514s        | Rust |
-| JavaLot             | Aarch64/1B/10K  | 3.397408959s / 16.526118166s     | Rust |
-| k0nserv             | Aarch64/1B/10K  | 19.898840292s                    | Rust |
+| JavaLot             | X86-64/1B/10K   | 3.543229527s / 6.4570514s        | Rust |
+| JavaLot             | Aarch64/1B/10K  | 3.389920542s / 16.526118166s     | Rust |
+| k0nserv             | Aarch64/1B/10K  | 18.842061917s                    | Rust |
 | tumdum              | X86-64/1B/10K   | 5.218078836s                     | Rust |
 | tumdum              | Aarch64/1B/10K  | 3.607328959s                     | Rust |
 | PurpleMyst          | X86-64/1B/10K   | N/A (Crash)                      | Rust |

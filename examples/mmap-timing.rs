@@ -5,7 +5,7 @@ use std::thread;
 use std::thread::available_parallelism;
 use std::time::{Duration, Instant};
 use ahash::AHashMap;
-use memmap2::Mmap;
+use memmap::Mmap;
 use one_brc::{FILE_PATH, LINE_MAX_LEN, process_block};
 use one_brc::result::TemperStatResult;
 
